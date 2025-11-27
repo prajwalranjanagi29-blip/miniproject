@@ -1,0 +1,40 @@
+timestamp,text,sentiment_label,sentiment_score,emotion_label
+2025-01-01 09:21:45,Feeling hopeful about the new year and excited to start fresh,POSITIVE,0.91,joy
+2025-01-02 20:14:10,I was stressed because of workload but managed everything somehow,NEGATIVE,0.72,stress
+2025-01-03 18:55:02,Had a relaxed day and spent time with family,POSITIVE,0.88,joy
+2025-01-04 22:44:18,Feeling lonely today didn't feel like talking to anyone,NEGATIVE,0.80,sadness
+2025-01-05 16:31:55,Very productive day completed all tasks and I’m proud,POSITIVE,0.93,joy
+2025-01-06 21:15:38,My anxiety was really high today nothing felt right,NEGATIVE,0.85,fear
+2025-01-07 11:42:05,Felt balanced nothing special happened everything normal,NEUTRAL,0.55,neutral
+2025-01-08 19:20:40,Enjoyed meeting my cousins and laughed a lot today,POSITIVE,0.96,joy
+2025-01-09 22:41:10,I am confused about my future and career direction,NEGATIVE,0.76,fear
+2025-01-10 07:51:21,Bad mood since morning everything felt irritating,NEGATIVE,0.83,anger
+2025-01-11 14:20:55,Started working on my goals feeling motivated and confident,POSITIVE,0.92,joy
+2025-01-12 23:42:18,Feeling guilty for procrastinating again today,NEGATIVE,0.78,guilt
+2025-01-13 17:28:47,Weather was peaceful and calming I feel mentally clear,POSITIVE,0.87,joy
+2025-01-14 21:10:39,Financial worries stressed me the whole day,NEGATIVE,0.82,stress
+2025-01-15 08:57:06,I had a creative flow today and came up with new ideas,POSITIVE,0.89,joy
+2025-01-16 20:32:44,Feeling extremely low and emotionally exhausted,NEGATIVE,0.91,sadness
+2025-01-17 18:06:23,I loved cooking dinner and it made me feel peaceful,POSITIVE,0.84,joy
+2025-01-18 22:19:15,I couldn't concentrate on anything my mind was blank,NEGATIVE,0.74,sadness
+2025-01-19 10:12:14,Read a book and had a calm day feeling balanced,NEUTRAL,0.60,neutral
+2025-01-20 21:51:33,Happy and grateful for good people in my life,POSITIVE,0.95,joy
+2025-01-21 09:47:52,Feeling left out and ignored by others,NEGATIVE,0.86,sadness
+2025-01-22 18:03:25,I tried exercising today and it boosted my energy,POSITIVE,0.90,joy
+2025-01-23 23:59:14,Feeling angry and frustrated about everything around me,NEGATIVE,0.92,anger
+2025-01-24 16:19:58,The day was fine nothing good or bad,NEUTRAL,0.53,neutral
+2025-01-25 19:22:03,I was scared thinking about failing in life,NEGATIVE,0.88,fear
+2025-01-26 08:50:19,Feeling proud of myself for improving daily habits,POSITIVE,0.94,joy
+2025-01-27 22:32:08,I cried today because I felt emotionally overwhelmed,NEGATIVE,0.90,sadness
+2025-01-28 15:24:37,Finally took a break and relaxed mind feels clear,POSITIVE,0.89,joy
+2025-01-29 21:16:44,Feeling insecure and comparing myself with others again,NEGATIVE,0.83,guilt
+2025-01-30 12:05:13,Felt nothing much happening just an average day,NEUTRAL,0.57,neutral
+2025-01-31 20:44:29,Had a great time with friends and laughed so much,POSITIVE,0.97,joy
+2025-02-01 19:28:33,Arguments at home made the day extremely stressful,NEGATIVE,0.89,anger
+2025-02-02 13:12:26,Feeling optimistic about career progress and improvement,POSITIVE,0.93,joy
+2025-02-03 21:42:18,Worried about health and fear of something going wrong,NEGATIVE,0.86,fear
+2025-02-04 14:09:51,Finished a big project and feel accomplished,POSITIVE,0.94,joy
+2025-02-05 22:55:48,Feeling mentally drained and not interested in anything,NEGATIVE,0.87,sadness
+2025-02-06 09:41:06,Had a peaceful walk and listened to music,POSITIVE,0.88,joy
+2025-02-07 20:29:57,I am disappointed in myself for not staying disciplined,NEGATIVE,0.81,guilt
+2025-02-08 11:54:30,Feeling driven and focused on improving my life,POSITIVE,0.95,joy
