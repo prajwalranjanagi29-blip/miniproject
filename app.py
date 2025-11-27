@@ -1,84 +1,63 @@
-import datetime as dt
-from pathlib import Path
-import pandas as pd
 import streamlit as st
+import pandas as pd
+import plotly.express as px
+from datetime import datetime
+import os
 
-from utils.speech_to_text import transcribe_audio_file
-from utils.emotion_analyzer import analyze_text
-from utils.visualizer import show_latest_entry_summary
+CSV_FILE = "mood_logs.csv"
 
-DATA_PATH = Path("data/mood_logs.csv")
+st.set_page_config(page_title="AI Mood Tracker", layout="centered")
 
+# Load / Create CSV
+if os.path.exists(CSV_FILE):
+    df = pd.read_csv(CSV_FILE)
+else:
+    df = pd.DataFrame(columns=["timestamp", "mood"])
+    df.to_csv(CSV_FILE, index=False)
 
-def load_logs():
-    if DATA_PATH.exists():
-        df = pd.read_csv(DATA_PATH)
-        df['timestamp'] = pd.to_datetime(df['timestamp'])
-        return df
-    return pd.DataFrame(columns=["timestamp", "text", "sentiment_label", "sentiment_score", "emotion_label"])
+# UI Header
+st.markdown("""
+<h1 style='text-align:center;'>AI Mood Tracker</h1>
+<p style='text-align:center;'>Track your moods daily and understand your emotional pattern.</p>
+<hr>
+""", unsafe_allow_html=True)
 
+# Input
+mood_text = st.text_area("📝 How are you feeling today?", "")
 
-def save_logs(df):
-    DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(DATA_PATH, index=False)
-
-
-def main():
-    st.set_page_config(
-        page_title="AI Mood Tracker", page_icon="🧠", layout="wide"
-    )
-
-    st.markdown("<h1 style='text-align:center;'>AI Mood Tracker 💬</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center;color:gray;'>Journal your day — AI will detect sentiment & emotion</p>", unsafe_allow_html=True)
-
-    df = load_logs()
-
-    st.markdown("### 🔹 Choose Input Method")
-    input_mode = st.radio("", ["Text Journal", "Voice Upload"])
-
-    user_text = ""
-
-    if input_mode == "Text Journal":
-        user_text = st.text_area("Write your thoughts for today:", height=260, placeholder="Today I felt...")
+# Save Mood
+if st.button("Save Mood"):
+    if mood_text.strip() == "":
+        st.error("Please write your mood before saving.")
     else:
-        audio = st.file_uploader("Upload voice note (mp3/wav/m4a)", type=["mp3", "wav", "m4a"])
-        if audio:
-            with st.spinner("Transcribing voice..."):
-                try:
-                    user_text = transcribe_audio_file(audio)
-                    st.success("Transcription complete!")
-                    st.text_area("Transcribed text:", value=user_text, height=250)
-                except Exception as e:
-                    st.error(f"❌ Transcription failed: {e}")
+        new_row = {"timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), "mood": mood_text}
+        df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+        df.to_csv(CSV_FILE, index=False)
+        st.success("Mood saved successfully!")
 
-    st.markdown("---")
+# Display Mood Logs
+st.subheader("📚 Mood History")
+if len(df) > 0:
+    st.dataframe(df[::-1], use_container_width=True)
+else:
+    st.info("No moods logged yet.")
 
-    if st.button("🔍 Analyze & Save Entry", use_container_width=True):
-        if not user_text.strip():
-            st.warning("Please write or upload something first!")
-        else:
-            with st.spinner("Analyzing mood using AI..."):
-                result = analyze_text(user_text)
+# Analytics
+st.subheader("📊 Mood Analytics")
+if len(df) > 0:
+    df["date_only"] = pd.to_datetime(df["timestamp"]).dt.date
+    fig = px.bar(df, x="date_only", y=df.index, color="mood",
+                 labels={"y": "Number of Entries", "date_only": "Date"})
+    st.plotly_chart(fig, use_container_width=True)
+else:
+    st.info("Add moods to see insights.")
 
-            st.success("Entry analyzed successfully!")
-            col1, col2 = st.columns(2)
-            col1.metric("Sentiment", f"{result['sentiment_label']} ({result['sentiment_score']:.2f})")
-            col2.metric("Emotion", result["emotion_label"])
+# Clear Data
+if st.button("❌ Clear All Data"):
+    df = pd.DataFrame(columns=["timestamp", "mood"])
+    df.to_csv(CSV_FILE, index=False)
+    st.warning("All mood entries deleted!")
 
-            new_row = {
-                "timestamp": dt.datetime.now(),
-                "text": user_text,
-                "sentiment_label": result["sentiment_label"],
-                "sentiment_score": result["sentiment_score"],
-                "emotion_label": result["emotion_label"],
-            }
-            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-            save_logs(df)
-
-            show_latest_entry_summary(df)
-
-    st.info("Visit the sidebar for Dashboard 📊, Reports 📁 and History 📅")
-
-
-if __name__ == "__main__":
-    main()
+# Footer
+st.markdown("<hr>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;'>Developed with ❤️ using Streamlit</p>", unsafe_allow_html=True)
